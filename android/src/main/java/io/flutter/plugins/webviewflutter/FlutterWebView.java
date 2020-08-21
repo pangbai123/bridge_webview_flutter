@@ -11,23 +11,16 @@ import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.WebStorage;
-import android.webkit.WebViewClient;
-
-import com.github.lzyzsd.jsbridge.BridgeHandler;
-import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
-import com.github.lzyzsd.jsbridge.CallBackFunction;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import io.flutter.Log;
 import io.flutter.plugin.common.BinaryMessenger;
-import io.flutter.plugin.common.JSONUtil;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.platform.PlatformView;
+import org.json.JSONException;
+import org.json.JSONObject;
+import wendu.webviewjavascriptbridge.WVJBWebView;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -343,9 +336,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
         final Map<String, Object> map = (Map<String, Object>) call.arguments;
         final String name = (String) map.get("name");
         if (name != null) {
-            webView.registerHandler(name, new BridgeHandler() {
+            webView.registerHandler(name, new WVJBWebView.WVJBHandler() {
                 @Override
-                public void handler(String data, CallBackFunction function) {
+                public void handler(Object data, WVJBWebView.WVJBResponseCallback callback) {
                     Object response = map.get("response");
                     if (response != null) {
                         if (response instanceof HashMap) {
@@ -364,6 +357,7 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
                         Log.e("JsBridge", "json error");
                     }
                 }
+
             });
         }
     }
@@ -382,9 +376,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
                     dataStr = (String) data;
                 }
             }
-            webView.callHandler(name, dataStr, new CallBackFunction() {
+            webView.callHandler(name, dataStr, new WVJBWebView.WVJBResponseCallback() {
                 @Override
-                public void onCallBack(String data) {
+                public void onResult(Object data) {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("name", name);
@@ -394,6 +388,7 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
                         Log.e("JsBridge", "json error");
                     }
                 }
+
             });
         }
     }

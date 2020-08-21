@@ -19,10 +19,10 @@ import androidx.annotation.RequiresApi;
 import androidx.webkit.WebResourceErrorCompat;
 import androidx.webkit.WebViewClientCompat;
 
-import com.github.lzyzsd.jsbridge.BridgeWebView;
-import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 
 import io.flutter.plugin.common.MethodChannel;
+import wendu.webviewjavascriptbridge.WVJBWebView;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -164,8 +164,8 @@ class FlutterWebViewClient {
     return internalCreateWebViewClientCompat();
   }
 
-  BridgeWebViewClient getBridgeWebViewClient(BridgeWebView webView) {
-    return new BridgeWebViewClient(webView) {
+  WebViewClient getBridgeWebViewClient(WVJBWebView webView) {
+    return new WebViewClient() {
       @Override
       public void onPageStarted(WebView view, String url, Bitmap favicon) {
         FlutterWebViewClient.this.onPageStarted(view, url);

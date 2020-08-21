@@ -4,14 +4,14 @@
 
 package io.flutter.plugins.webviewflutter;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
-import com.github.lzyzsd.jsbridge.BridgeWebView;
+import wendu.webviewjavascriptbridge.WVJBWebView;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 /**
  * A WebView subclass that mirrors the same implementation hacks that the system WebView does in
  * order to correctly create an InputConnection.
@@ -22,7 +22,7 @@ import com.github.lzyzsd.jsbridge.BridgeWebView;
  *
  * <p>See also {@link ThreadedInputConnectionProxyAdapterView}.
  */
-final class InputAwareWebView extends BridgeWebView {
+final class InputAwareWebView extends WVJBWebView {
   private static final String TAG = "InputAwareWebView";
   private View threadedInputConnectionProxyView;
   private ThreadedInputConnectionProxyAdapterView proxyAdapterView;
