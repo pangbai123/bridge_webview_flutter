@@ -343,9 +343,9 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
                     if (response != null) {
                         if (response instanceof HashMap) {
                             JSONObject jsonObject = new JSONObject((Map) response);
-                            function.onCallBack(jsonObject.toString());
+                            function.onResult(jsonObject.toString());
                         } else {
-                            function.onCallBack((String) response);
+                            function.onResult((String) response);
                         }
                     }
                     JSONObject jsonObject = new JSONObject();
